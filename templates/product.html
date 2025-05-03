@@ -1,0 +1,60 @@
+{% include 'header.html' %}
+<div class="product-container">
+        <div class="product-card">
+            <img src="../static/img/products_images/{{product.image_filename}}" alt="Худи АКЕВІА" class="product-image">
+            <div class="product-info">
+                <div class="product-title">{{product.name}}</div>
+                <div class="product-details">
+                    <p><strong>Размер:</strong> one size</p>
+                    <p><strong>Цена:</strong> {{price.price}} ₽</p>
+                    <p><strong>Артикул:</strong> {{product.product_code}}</p>
+                    <p><strong>Бренд:</strong> АКЕВІА</p>
+                    <p><strong>Цвет товара:</strong> черный</p>
+                    <p><strong>Состав материала:</strong> хлопок 75%, полиэстер 25%</p>
+                    <p><strong>Пол:</strong> женский, мужской</p>
+                    <p><strong>Силуэт:</strong> оверсайз</p>
+                </div>
+                <p class="">в наличии {{count}} шт</p>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5 class="py-2">{{price.price}} ₽</h5>
+                        </div>
+                        <div class="col-md-5">
+                            {% if is_in_cart %}
+                                <p class="inactive text-center py-2">В корзине</p>
+                            {% elif count > 0%}
+                            <button class="click-btn" onclick="add_to_cart({{product.id}})">Добавить в корзину</button>
+                            {% else %}
+                                <p class="inactive text-center py-2">В корзину</p>
+                            {% endif %}
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function add_to_cart(product_id){
+            event.preventDefault()
+            const response = await fetch('/product/add_to_cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        product_id: Number(product_id)
+                    })
+                })
+            const json_res = await response.json();
+            console.log(JSON.stringify(json_res));
+            console.log(typeof parseInt(product_id), product_id);
+            console.log(json_res.status_code);
+            if (json_res.status_code === 401) {
+                window.location.replace(window.location.origin + '/user/login');
+            } else if (response.status === 200){
+                window.location.href = '/';
+            } else {
+                alert("Не удалось добавить товар. Возможно он уже есть в корзине.")
+            }
+        }
+    </script>
+{% include 'footer.html' %}

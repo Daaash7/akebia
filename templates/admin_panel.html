@@ -1,0 +1,74 @@
+{% include 'header.html' %}
+
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="">
+                <div class="row border rounded p-4">
+                    <div class="col">
+                        <h5>Категории: </h5>
+                    </div>
+                    <div class="col">
+                        <p class="text-end">
+                            <a href="/category/create" class="btn btn-primary">Добавить</a>
+                        </p>
+                    </div>
+                    <table class="table">
+                    <thead>
+                        <tr>
+                          <th scope="col">id</th>
+                          <th scope="col">Название</th>
+                          <th scope="col">Действие</th>
+                        </tr>
+                      </thead>
+                    <tbody>
+                    {% for cat in categories %}
+                    <tr>
+                      <th scope="row">{{cat.id}}</th>
+                      <td><a href="/category?cat_id={{cat.id}}">{{cat.name}}</a></td>
+                      <td><a href="/" class="btn btn-danger">Удалить</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+
+                <div class="row border rounded p-4 mt-3">
+                    <div class="col">
+                        <h5>Производители: </h5>
+                    </div>
+                    <div class="col">
+                        <p class="text-end">
+                            <a href="/manufacturer/create" class="btn btn-primary">Добавить</a>
+                        </p>
+                    </div>
+                    <table class="table">
+                    <thead>
+                        <tr>
+                          <th scope="col">id</th>
+                          <th scope="col">Название</th>
+                          <th scope="col">Действие</th>
+                        </tr>
+                      </thead>
+                    <tbody>
+                    {% for man in manufacturers %}
+                    <tr>
+                      <th scope="row">{{man.id}}</th>
+                      <td><a href="/category?cat_id={{man.id}}">{{man.name}}</a></td>
+                      <td><a href="/" class="btn btn-danger">Удалить</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-7">
+            <a href="/order/all" class="btn btn-primary">Все заказы</a>
+        </div>
+
+
+    </div>
+</div>

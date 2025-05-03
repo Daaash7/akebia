@@ -1,0 +1,22 @@
+{% include 'header.html' %}
+<section id="hoodies">
+        <h2>{{category.name}}</h2>
+        {% if cards|length == 0 %}
+            <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+                <h2 class="text-center fs-5 my-5">Товаров пока нет..</h2>
+            </div>
+        {% else %}
+        <div class="gallery">
+            {% for card in cards %}
+            <div class="image-container">
+                <a href="/product/?pr_id={{card.product.id}}">
+                    <img src="../static/img/products_images/{{card.product.image_filename}}" alt="Hudy 1">
+                </a>
+                <p class="image-text">{{card.new_price.price}} ₽</p>
+            </div>
+
+        {% endfor %}
+{% endif %}
+        </div>
+    </section>
+{% include 'footer.html' %}

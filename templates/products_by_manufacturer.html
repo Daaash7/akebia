@@ -1,0 +1,38 @@
+{% include 'header.html' %}
+ <div class="container mt-5">
+     <h4 class="my-5">Товары по производителю: {{manufacturer.name}}</h4>
+        <div class="row">
+{% if cards|length == 0 %}
+    <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+        <h2 class="text-center fs-5 my-5">Товаров пока нет..</h2>
+    </div>
+{% else %}
+    {% for card in cards %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 d-flex flex-column">
+                <div class="card-body flex-grow-1 p-0">
+                    <img src="../static/img/products_images/{{card.product.image_filename}}"
+                         class="card-img-top object-fit-cover"
+                         alt="{{card.product.name}} project"
+                         style="height: 250px">
+                    <h3 class="card-title p-3">{{card.product.name}}</h3>
+                </div>
+
+                <div class="my-3 align-items-center" style="border-top: none;">
+
+                    <div class="row mx-3">
+                        <div class="col-md-5">
+                            <h5 class="py-1">{{card.new_price.price}}  ₽</h5>
+                        </div>
+                        <div class="col-md-7">
+                            <a href="/product/?pr_id={{card.product.id}}" class="nav-link active text-center py-2">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+        </div>
+      </div>

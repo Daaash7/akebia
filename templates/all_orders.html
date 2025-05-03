@@ -1,0 +1,89 @@
+{% include 'header.html' %}
+<div class="container">
+    <button class="btn btn-primary mb-3" onclick="sortCards('order')">Сортировать по номеру заказа</button>
+    <button class="btn btn-secondary mb-3" onclick="sortCards('date')">Сортировать по дате оформления</button>
+    <button class="btn btn-success mb-3" onclick="sortCards('status')">Сортировать по статусу заказа</button>
+    <div class="row" id="card-container">
+        {% for order in orders %}
+        <div class="col-md-3 my-3">
+            <div class="card" data-order={{order.id}} data-date={{order.date}} data-status={{order.status if order.status is not none else 0 }}>
+                <div class="card-body">
+                    <h3 class="card-title text-center">№{{order.id}}</h3>
+                    <h6>Дата оформления:</h6>
+                    <p class="text-center">{{order.date}}</p>
+                    <h6>Товары:</h6>
+                    <ul class="mx-3">
+                        {% for position in order.positions %}
+                            <li>{{position.product.name}} - {{position.price.price}}  ₽</li>
+                        {% endfor %}
+                    </ul>
+
+                    <h6>Статус:</h6>
+                    {% if order.status == 1 %}
+                    <p class="my-1 text-center text-bg-warning text-wrap rounded py-1">В обработке</p>
+                    {% elif order.status == 2 %}
+                    <p class="my-1 text-center text-bg-primary text-wrap rounded py-1">Собирается</p>
+                    {% elif order.status == 3 %}
+                    <p class="my-1 text-center text-bg-success text-wrap rounded py-1">Готов к получению</p>
+                    {% else %}
+                    <p class="my-1 text-center text-bg-danger text-wrap rounded py-1">None</p>
+                    {% endif %}
+                    <div class="form-floating mt-3">
+                      <select class="form-select" id="{{order.id}}" aria-label="Floating label select example">
+                        <option value="1">В обработке</option>
+                        <option value="2">На сборке</option>
+                        <option value="3">Готов к получению</option>
+                      </select>
+                      <label for="floatingSelect">Установить статус</label>
+                    </div>
+                    <button class="btn btn-success mt-2" onclick="change_status({{order.id}})">Установить</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+    <script>
+        function sortCards(type) {
+            let container = document.getElementById("card-container");
+            let cards = Array.from(container.getElementsByClassName("col-md-3"));
+
+            cards.sort((a, b) => {
+                let aValue = a.querySelector(".card").dataset[type];
+                let bValue = b.querySelector(".card").dataset[type];
+
+                if (type === 'date') {
+                    return new Date(aValue) - new Date(bValue);
+                } else {
+                    return aValue - bValue;
+                }
+            });
+
+            container.innerHTML = "";
+            cards.forEach(card => container.appendChild(card));
+        }
+    </script>
+
+    <script>
+        async function change_status(order_id) {
+            event.preventDefault();
+            let status_id = parseInt(document.getElementById(order_id).value)
+            console.log(order_id, status_id)
+            const response = await fetch('/order/change_status', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        order_id: order_id,
+                        status_id: status_id
+                    })
+                })
+            if (response.status === 200) {
+                window.location.reload()
+            } else {
+                alert("Не удалось изменить статус!")
+            }
+        }
+    </script>

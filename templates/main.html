@@ -1,0 +1,15 @@
+{% include 'header.html' %}
+<main>
+        <section class="new-collection">
+            <h2>New collection</h2>
+            {% for card in new_collection %}
+            <div class="gallery">
+                <a href="/product/?pr_id={{card.product.id}}">
+                    <img src="../static/img/products_images/{{card.product.image_filename}}" alt="Фото 1">
+                    <p class="image-text">{{card.new_price.price}} ₽</p>
+                </a>
+            </div>
+            {% endfor %}
+        </section>
+</main>
+{% include 'footer.html' %}

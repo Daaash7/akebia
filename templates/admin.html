@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/admin/login" method="post" accept-charset="utf-8">
+        <input type="text" id="username" name="username" placeholder="username">
+        <input type="password" id="password" name="password" placeholder="password">
+        <input type="submit" onclick="login()">
+    </form>
+
+    <script>
+        async function login() {
+            event.preventDefault();
+            let username = document.getElementById("username").value
+            let password = document.getElementById("password").value
+            const response = await fetch('/admin/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                })
+            if (response.status === 200) {
+                window.location.href = '/';
+            } else {
+                alert("Неверный логин или пароль!")
+            }
+        }
+    </script>
+</body>
+</html>

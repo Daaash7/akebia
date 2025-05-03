@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="../static/style.css" rel="stylesheet">
+    <title>Создание</title>
+</head>
+<body class="min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="container-sm" style="max-width: 600px">
+        <h2 class="my-4">Создание производителя</h2>
+        <form action="/manufacturer/create" method="post" accept-charset="utf-8"
+      enctype="multipart/form-data">
+          <div class="mb-3">
+                <label for="manufacturer_name" class="form-label">Название производителя</label>
+                <input type="text" id="manufacturer_name" name="manufacturer_name" placeholder="Название прозводителя" class="form-control" required>
+                <input type="file" id="manufacturer_image" name="manufacturer_image" placeholder="Файл с изображением" class="form-control my-2" required>
+          </div>
+          <button type="submit" class="btn btn-success">Создать</button>
+        </form>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!--<script>-->
+<!--    async function login_user(){-->
+<!--        event.preventDefault()-->
+<!--        let name = document.getElementById("man_name").value-->
+<!--        let image_filename = document.getElementById("man_img_filename").value-->
+
+<!--        const response = await fetch('/manufacturer/create', {-->
+<!--                method: 'POST',-->
+<!--                headers: {-->
+<!--                    'Content-Type': 'application/json'-->
+<!--                },-->
+<!--                body: JSON.stringify({-->
+<!--                    manufacturer_name: name,-->
+<!--                })-->
+<!--            })-->
+<!--        const json = await response.json();-->
+<!--        console.log(JSON.stringify(json));-->
+<!--        if (json.ok){-->
+<!--            window.location.href = '/';-->
+<!--        } else {-->
+<!--            alert("Не удалось создать производителя. Возможно, такое название уже существует.")-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+</body>
+</html>

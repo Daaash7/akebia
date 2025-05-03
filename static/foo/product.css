@@ -1,0 +1,137 @@
+header {
+    background-color: #BFBEBE;
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header h1 {
+    margin: 0;
+    margin-right: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 17px;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.right-links {
+    display: flex;
+    gap: 15px;
+}
+
+.right-links a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 17px;
+    transition: all 0.3s ease;
+}
+
+.right-links a:hover {
+    color: #ffffff;
+    font-size: 18px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+}
+
+.product-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.product-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    max-width: 1400px;
+    display: flex;
+    gap: 100px;
+}
+
+.product-image {
+    height: 600px;
+    width: 450px;
+    border-radius: 8px;
+}
+
+.product-info {
+    width: 70%;
+}
+
+.product-title {
+    font-size: 27px;
+    font-weight: bold;
+    margin-top: 75px;
+    margin-bottom: 20px;
+}
+
+.product-details {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.product-details p {
+    margin: 25px 40px;
+}
+
+.product-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+}
+
+footer .follow-us {
+    margin-bottom: 40px;
+}
+
+footer .follow-us h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.ake {
+    margin-top: 40px;
+}

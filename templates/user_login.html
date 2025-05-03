@@ -1,0 +1,47 @@
+{% include 'header.html' %}
+    <main class="login-main">
+    <h2 class="login-title">Войти</h2>
+    <div class="login-card">
+        <form class="login-form" id="loginForm">
+            <label for="username">Уникальное имя:</label>
+            <input type="username" id="username" required>
+
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" required>
+
+            <button type="submit" class="login-btn" onclick="login_user()">Войти</button>
+        </form>
+
+        <p class="no-account-text">Если нет аккаунта</p>
+        <a class="register-btn" href="/user/register">Зарегистрироваться</a>
+    </div>
+</main>
+{% include 'footer.html' %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    async function login_user(){
+        event.preventDefault()
+        let username = document.getElementById("username").value
+        let password = document.getElementById("password").value
+
+        const response = await fetch('/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            })
+        const json = await response.json();
+        console.log(JSON.stringify(json));
+        if (json.ok){
+            window.location.href = '/user';
+        } else {
+            alert("Не удалось войти. Данные для входа неверны.")
+        }
+    }
+</script>
+</body>
+</html>

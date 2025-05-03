@@ -1,0 +1,95 @@
+{% include 'header.html' %}
+
+<main>
+    <section class="profile">
+        <div class="profile-header">
+            <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Аватар пользователя" class="avatar">
+            <div class="profile-info">
+                <h2>{{current_user.username}}</h2>
+                <p>{{current_user.phone_number}}</p>
+            </div>
+        </div>
+
+        <div class="main-order">
+            <h2 class="orders-title">Заказы</h2>
+            {% for order in orders %}
+
+            {% set ns = namespace(total=0) %}
+            {% for position in order.positions %}
+              {% set ns.total = ns.total + position.price.price %}
+            {% endfor %}
+
+            <div class="order-card">
+                <div class="order-info">
+                    <p class="order-date">{{order.date}}</p>
+                    {% if order.status == 1 %}
+                    <span class="status my-1 text-center text-bg-warning text-wrap rounded py-1">В обработке</span>
+                    {% elif order.status == 2 %}
+                    <span class="status my-1 text-center text-bg-primary text-wrap rounded py-1">Собирается</span>
+                    {% elif order.status == 3 %}
+                    <span class="status my-1 text-center text-bg-success text-wrap rounded py-1">Готов к получению</span>
+                    {% else %}
+                    <span class="status my-1 text-center text-bg-danger text-wrap rounded py-1">None</span>
+                    {% endif %}
+                </div>
+                <div class="order-products">
+                    {% for position in order.positions %}
+                    <img src="../static/img/products_images/{{position.product.image_filename}}" alt="Товар">
+                    {% endfor %}
+                </div>
+                <div class="order-total">
+                    <p>Сумма:<br>{{ns.total}} ₽</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </section>
+</main>
+{% include 'footer.html' %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    async function del_from_cart(product_id) {
+        event.preventDefault()
+        const response = await fetch('/product/del_from_cart?pr_id=' + product_id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const json_res = await response.json();
+        if (json_res.status_code === 401) {
+            window.location.reload();
+        } else if (response.status === 200) {
+            window.location.href = '/';
+        } else {
+            alert("Не удалось добавить товар. Возможно он уже есть в корзине.")
+        }
+    }
+
+    async function create_order(){
+        event.preventDefault()
+        const response = await fetch('/product/add_to_cart', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+    },
+        body: JSON.stringify({
+        product_id: Number(product_id)
+    })
+    })
+        const json_res = await response.json();
+        console.log(JSON.stringify(json_res));
+        console.log(typeof parseInt(product_id), product_id);
+        console.log(json_res.status_code);
+        if (json_res.status_code === 401) {
+        window.location.replace(window.location.origin + '/user/login');
+    } else if (response.status === 200){
+        window.location.href = '/';
+    } else {
+        alert("Не удалось добавить товар. Возможно он уже есть в корзине.")
+    }
+    }
+</script>
+</body>
+</html>
