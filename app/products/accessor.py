@@ -16,16 +16,14 @@ async def get_product_by_manufacturer(manufacturer_id: int):
 
 async def create_product(name: str, description: str, category_id: int, image_filename: str, product_price: int) -> Product | None:
     try:
-        await db.execute("INSERT INTO products (name, product_code, description, manufacturer_id, category_id, image_filename) VALUES ($1, $2, $3, $4, $5, $6)", name, generate_article_number(), description, 0, category_id, image_filename)
+        res = await db.fetchrow("INSERT INTO products (name, product_code, description, manufacturer_id, category_id, image_filename) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", name, generate_article_number(), description, 0, category_id, image_filename)
+        product_id = res["id"]
+        pr = await get_product_by_id(product_id)
+        await set_price(pr.id, product_price)
+        return pr
     except Exception as e:
         print(e)
         return None
-    pr = Product(**(await db.fetchrow("SELECT * FROM products WHERE name = $1", name)))
-    try:
-        await set_price(pr.id, product_price)
-    except Exception as e:
-        print(e)
-    return pr
 
 async def get_product_by_id(product_id: int) -> Product:
     res = await db.fetchrow("SELECT * FROM products WHERE id = $1", product_id)
@@ -51,6 +49,12 @@ async def get_new_collection():
                 )
             )
     return data
+
+async def is_new_collection(product_id: int) -> bool:
+    res = await db.fetchrow("SELECT * FROM new_collection WHERE product_id = $1", product_id)
+    if res is not None:
+        return True
+    return False
 
 async def add_product_to_new_coll(product_id: int):
     try:

@@ -8,4 +8,4 @@ class Price:
     id: int
     date: datetime
     product_id: int
-    price: int
+    price: int | None

@@ -6,13 +6,15 @@ from pydantic import BaseModel
 from starlette.requests import Request
 from starlette.responses import RedirectResponse
 
+from app.admin.models import Admin
 from app.cart.accessor import add_to_cart, check_product_in_cart, del_from_cart
 from app.category.accessor import get_all_categories, get_category_by_id
 from app.manufacturers.accessor import get_all_manufacturers, get_manufacturer_by_id
 from app.price.accessor import get_current_price
-from app.products.accessor import create_product, get_product_by_id, add_product_to_new_coll, del_product_from_new_coll
+from app.products.accessor import create_product, get_product_by_id, add_product_to_new_coll, del_product_from_new_coll, \
+    is_new_collection
 from app.user.models import User
-from app.utils.cookies_session import get_current_admin, get_current_user
+from app.utils.cookies_session import get_current_admin, get_current_user, validate_admin
 from app.utils.utils import templates, save_product_image
 from app.warehouse.accessor import get_product_count
 
@@ -53,7 +55,7 @@ async def create_product_post(request: Request,
         raise HTTPException(status_code=409, detail="Error")
 
 @router.get("/")
-async def product_get(request: Request, pr_id: Annotated[int, Query()], user: User = Depends(get_current_user)):
+async def product_get(request: Request, pr_id: Annotated[int, Query()], user: User = Depends(get_current_user), admin: Admin | None = Depends(validate_admin)):
     product = await get_product_by_id(pr_id)
     is_in_cart = False
     if user:
@@ -67,8 +69,10 @@ async def product_get(request: Request, pr_id: Annotated[int, Query()], user: Us
                                        "price": await get_current_price(product.id),
                                        "count": await get_product_count(product.id),
                                        "is_in_cart": is_in_cart,
+                                       "is_new_collection": await is_new_collection(product.id),
                                        "current_user": await get_current_user(request),
                                        "page_name": product.name,
+                                       "admin": admin
                                        })
 
 @router.post("/add_to_cart")
@@ -77,7 +81,6 @@ async def add_to_cart_post(request: AddToCart, user: User = Depends(get_current_
         return HTTPException(status_code=401, detail="Not Authorized")
     product_id = request.product_id
     product = await get_product_by_id(int(product_id))
-    print(product)
     if not product:
         raise HTTPException(status_code=404)
     res = await add_to_cart(user.id, product_id, 1)

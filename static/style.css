@@ -131,6 +131,19 @@ body {
     cursor: pointer;
 }
 
+.disabled-btn {
+    display: block;
+    width: 300px;
+    margin-left: 40px;
+    padding: 15px;
+    background-color: #c6c6c6;
+    color: black;
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
 .click-btn:hover {
     background-color: #333;
 }
@@ -296,18 +309,16 @@ section h2 {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: calc(33.33% - 14px); 
-    box-sizing: border-box; 
+    width: calc(33.33% - 14px);
+    box-sizing: border-box;
 }
 
 .image-container img {
-    max-width: 93%;
-    height: auto;
     border-radius: 10px;
 }
 
 .image-text {
-    margin-top: 10px; 
+    margin-top: 10px;
     font-size: 20px;
     color: #333;
 }
@@ -536,8 +547,8 @@ section h2 {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: calc(33.33% - 14px); 
-    box-sizing: border-box; 
+    width: calc(33.33% - 14px);
+    box-sizing: border-box;
 }
 
 .image-container img {
@@ -547,7 +558,7 @@ section h2 {
 }
 
 .image-text {
-    margin-top: 10px; 
+    margin-top: 10px;
     font-size: 20px;
     color: #333;
 }
@@ -660,8 +671,8 @@ section h2 {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: calc(33.33% - 14px); 
-    box-sizing: border-box; 
+    width: calc(33.33% - 14px);
+    box-sizing: border-box;
 }
 
 .image-container img {
@@ -671,7 +682,7 @@ section h2 {
 }
 
 .image-text {
-    margin-top: 10px; 
+    margin-top: 10px;
     font-size: 20px;
     color: #333;
 }
@@ -998,7 +1009,7 @@ body {
     display: flex;
     gap: 40px;
     justify-content: space-between;
-    align-items: stretch; 
+    align-items: stretch;
 }
 
 .address-form {
@@ -1013,7 +1024,7 @@ body {
     margin-bottom: 10px;
 }
 
-.address-form input, 
+.address-form input,
 .address-form textarea {
     padding: 10px;
     background-color: #d3d3d3;

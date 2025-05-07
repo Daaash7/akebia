@@ -12,7 +12,11 @@
                 <a href="/product/?pr_id={{card.product.id}}">
                     <img src="../static/img/products_images/{{card.product.image_filename}}" alt="Hudy 1">
                 </a>
-                <p class="image-text">{{card.new_price.price}} ₽</p>
+                {% if card.new_price.price %}
+                    <p class="image-text">{{card.new_price.price}} ₽</p>
+                {% else %}
+                    <p class="image-text">Цена не найдена</p>
+                {% endif %}
             </div>
 
         {% endfor %}

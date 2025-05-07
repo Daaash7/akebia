@@ -40,6 +40,24 @@ async def get_current_admin(request: Request):
                 raise HTTPException(status_code=401, detail="Unauthorized")
     raise HTTPException(status_code=401, detail="Unauthorized")
 
+async def validate_admin(request: Request):
+    # payload = {}
+    # try:
+    #     payload = _get_auth_cookie(request)
+    # except Exception:
+    #     raise RequiresAdminLoginException
+    try:
+        payload = _get_auth_cookie(request)
+    except HTTPException:
+        return None
+    if payload and payload["type"]:
+        if payload["type"] == "admin":
+            try:
+                return await get_admin_by_id(payload.get("id"))
+            except Exception:
+                return None
+    return None
+
 async def get_current_user(request: Request):
     try:
         payload = _get_auth_cookie(request)

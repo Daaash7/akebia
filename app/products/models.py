@@ -18,6 +18,6 @@ class Product:
 @dataclass
 class ProductCard:
     product: Product
-    new_price: Price
+    new_price: Price | None
     manufacturer: Manufacturer | None
     category: Category | None

@@ -3,9 +3,10 @@ from app.store.database import db
 
 async def add_deliver(product_id: int, count) -> bool:
     try:
-        await db.execute("INSERT INTO delievers (product_id, count) VALUES (?, ?)", (product_id, count))
+        await db.execute("INSERT INTO deliveries (product_id, count) VALUES ($1, $2)", product_id, count)
         return True
-    except Exception:
+    except Exception as e:
+        print(e)
         return False
 
 async def get_product_count(product_id: int) -> int:

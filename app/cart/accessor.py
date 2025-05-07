@@ -34,6 +34,8 @@ async def get_all_cart(user_id) -> List[CartPosition]:
         pr_id = rec["product_id"]
         product = await get_product_by_id(pr_id)
         price = await get_current_price(pr_id)
+        if not price:
+            continue
         card = CartPosition(
             product,
             price,

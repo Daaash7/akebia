@@ -9,7 +9,9 @@ async def set_price(product_id: int, price: int):
 
 async def get_current_price(product_id: int):
     res = await db.fetchrow("SELECT * FROM price_changes WHERE product_id = $1 ORDER BY date DESC", product_id)
-    return Price(**res)
+    if res:
+        return Price(**res)
+    return None
 
 async def get_price_for_date(product_id: int, date: datetime) -> Price | None:
     res = await db.fetchrow("""SELECT * 

@@ -21,4 +21,4 @@ setup_middlewares(app)
 #                                            })
 #     # return JSONResponse(exc.detail, status_code=exc.status_code)
 
-app.mount("/static", StaticFiles(directory="../static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
