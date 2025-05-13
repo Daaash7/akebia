@@ -1,6 +1,7 @@
 import hashlib
 import os.path
 import shutil
+import uuid
 from pathlib import Path
 import random
 
@@ -25,7 +26,7 @@ def _save_image(path, name, file:UploadFile):
     if not os.path.exists(path):
         os.mkdir(path)
 
-    filename = f'{name}{Path(file.filename).suffix}'
+    filename = f'{str(uuid.uuid4())}{Path(file.filename).suffix}'
     try:
         with open(f"{path}{filename}", 'wb+') as buffer:
             shutil.copyfileobj(file.file, buffer)
