@@ -6,30 +6,33 @@
                 <div class="product-title">{{product.name}}</div>
                 <div class="product-details">
                     <p><strong>Размер:</strong> one size</p>
-                    <p><strong>Цена:</strong> {{price.price}} ₽</p>
                     <p><strong>Артикул:</strong> {{product.product_code}}</p>
                     <p><strong>Бренд:</strong> АКЕВІА</p>
                     <p><strong>Цвет товара:</strong> черный</p>
                     <p><strong>Состав материала:</strong> хлопок 75%, полиэстер 25%</p>
-                    <p><strong>Пол:</strong> женский, мужской</p>
-                    <p><strong>Силуэт:</strong> оверсайз</p>
+                    <p><strong>Пол:</strong> unisex</p>
+                    <p><strong>Силуэт:</strong> oversize</p>
+                    <p class=""><strong>В наличии:</strong> {{count}} шт</p>
                 </div>
-                <p class="">в наличии {{count}} шт</p>
                     <div class="row">
-                        <div class="col-md-7">
+                        <div class="product-price">
                             {% if price.price %}
-                                <h5 class="py-2">{{price.price}} ₽</h5>
+                                <p class="py-2"><strong>{{price.price}} ₽</strong></p>
                             {% else %}
-                                <h5 class="py-2">Цена не найдена</h5>
+                                <p class="py-2">Цена не найдена</p>
                             {% endif %}
                         </div>
                         <div class="row">
                             {% if is_in_cart %}
                                 <button class="disabled-btn" disabled>В корзине</button>
-                            {% elif count > 0 and not price.price %}
+                            {% elif count > 0 and price.price %}
                             <button class="click-btn" onclick="add_to_cart({{product.id}})">Добавить в корзину</button>
                             {% else %}
-                                <button class="disabled-btn" disabled>В корзине</button>
+                                {% if not price.price %}
+                                    <button class="disabled-btn" disabled>Цена не найдена</button>
+                                    {% else %}
+                                    <button class="disabled-btn" disabled>Товар закончился</button>
+                                    {% endif %}
                             {% endif %}
                         </div>
                     </div>

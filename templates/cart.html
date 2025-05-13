@@ -49,37 +49,3 @@
 {% include 'footer.html' %}
 
 
-<div class="container-sm" style="max-width: 600px">
-<div class="border rounded p-3 mt-5">
-    <div class="d-flex mb-3">
-        <h5 class="my-auto">Корзина</h5>
-    </div>
-    {% if cart|length == 0 %}
-    <p class="my-auto ms-auto mx-4 text-center">В корзине пусто...</p>
-    {% endif %}
-    {% for product_card in cart %}
-
-    {% if product_card.count > 0 %}
-
-    <div class="d-flex border p-2 rounded mt-2">
-        <img src="../static/img/products_images/{{product_card.product.image_filename}}" alt="" style="width: 50px" class="rounded">
-        <h6 class="my-auto mx-4">{{product_card.product.name}}</h6>
-        <p class="my-auto ms-auto mx-4">{{product_card.new_price.price}} ₽</p>
-        <a href="/product/del_from_cart?pr_id={{product_card.product.id}}" class="my-auto btn btn-danger" onclick="del_from_cart({{product_card.product.id}})">Удалить</a>
-    </div>
-
-    {% endif %}
-
-    {% endfor %}
-    <form class="mt-3" action="/order/create" method="post" accept-charset="utf-8"
-      enctype="multipart/form-data">
-        {% if not (cart | selectattr('count', '>', 0) | list | length) > 0 %}
-        <h6 class="text-center">Корзина пуста, здесь отображаются товары, которые доступны для заказа (количество > 0)</h6>
-        {% else %}
-        <label for="address">Адрес заказа</label>
-        <input id="address" name="address" type="text" placeholder=" Адрес" class="rounded border p-1 form-control" style="max-width: 250px">
-        <input type="submit" name="" id="" class="btn btn-success">
-        {% endif %}
-    </form>
-</div>
-</div>

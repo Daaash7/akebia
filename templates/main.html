@@ -1,17 +1,23 @@
 {% include 'header.html' %}
-<main>
-        <h2 class="text-center">New collection</h2>
-            <div class="row">
-            {% for card in new_collection %}
-                <div class="col-md-4">
+<main class="main-page">
+        <section class="about-us">
+            <h2><strong>АКЕВІА — твой стиль, твои правила</strong></h2>
+            <p>Мы — не просто бренд. Мы — голос улицы, ритм города, свобода самовыражения. АКЕВІА — это кастомные худи, зипки и свитшоты, которые говорят за тебя.</p>
+            <p>Уникальные дизайны, лимитированные дропы и только качественные материалы — потому что ты заслуживаешь больше, чем массмаркет.</p>
+            <p>Носи то, что отражает тебя. Создавай стиль без границ. Будь с теми, кто в теме — будь с АКЕВІА.</p>
+        </section>
+        <h2 class="text-center"><strong>New collection</strong></h2>
+            <div class="row-main">
+                {% for card in new_collection %}
+                <div class="col-md-4-main">
                     <a href="/product/?pr_id={{card.product.id}}">
                         <div style="height: 500px">
                             <img src="../static/img/products_images/{{card.product.image_filename}}" class="" alt="Фото 1">
                         </div>
-                        <p class="image-text text-center">{{card.new_price.price}} ₽</p>
+                        <p class="image-text-main">{{card.new_price.price}} ₽</p>
                     </a>
                 </div>
-            {% endfor %}
+                {% endfor %}
             </div>
 </main>
 {% include 'footer.html' %}

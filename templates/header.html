@@ -13,24 +13,21 @@
 </head>
 <body>
     <header>
-        <h1><a href="/">АКЕВІА</a></h1>
+        <h1><a href="/"><strong>АКЕВІА</strong></a></h1>
         <nav>
             <ul>
-                <li><a href="/">Главная</a></li>
                 <li><a href="/category?cat_id=1">Худи</a></li>
                 <li><a href="/category?cat_id=2">Зипки</a></li>
                 <li><a href="/category?cat_id=3">Свитшоты</a></li>
             </ul>
         </nav>
         <nav class="right-links">
-<!--            <a href="#search">Поиск</a>-->
-            {% if current_user %}
             <a href="/user">
-                <img src="../static/user_icon.png" class="user_logo">
+                <img src="../static/userPhoto.png" class="user_logo">
             </a>
-            {% else %}
-            <a class="active text-center" href="/user/login">Войти</a>
-            {% endif %}
-            <a href="/cart">Корзина</a>
+            <a href="/cart">
+               <img src="../static/basket.png" class="user_logo">
+            </a>
         </nav>
+
     </header>
