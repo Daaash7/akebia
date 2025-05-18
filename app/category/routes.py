@@ -4,7 +4,7 @@ from fastapi.params import Depends
 from pydantic import BaseModel
 from starlette.requests import Request
 
-from app.category.accessor import get_category_by_id, create_category
+from app.category.accessor import get_category_by_id, create_category, delete_category
 from app.manufacturers.accessor import get_manufacturer_by_id
 from app.price.accessor import get_current_price
 from app.products.accessor import get_products_by_category
@@ -18,6 +18,9 @@ router = APIRouter(
 
 class CategoryCreate(BaseModel):
     category_name: str
+
+class CategoryDelete(BaseModel):
+    category_id: int
 
 @router.get("")
 async def category_by_id(request: Request, cat_id:int, user = Depends(get_current_user)):
@@ -59,4 +62,13 @@ async def create_category_api(request:Request, category_name: CategoryCreate, ad
         'ok': True,
         'category': res.name
     }
+
+@router.delete("/delete")
+async def delete_category_(request:CategoryDelete, admin = Depends(get_current_admin)):
+    res = await delete_category(request.category_id)
+    if not res:
+        return {'ok': False}
+    return {'ok': True}
+
+
 

@@ -26,36 +26,7 @@
                     <tr>
                       <th scope="row">{{cat.id}}</th>
                       <td><a href="/category?cat_id={{cat.id}}">{{cat.name}}</a></td>
-                      <td><a href="/" class="btn btn-danger">Удалить</a></td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                    </table>
-                </div>
-
-                <div class="row border rounded p-4 mt-3">
-                    <div class="col">
-                        <h5>Производители: </h5>
-                    </div>
-                    <div class="col">
-                        <p class="text-end">
-                            <a href="/manufacturer/create" class="btn btn-primary">Добавить</a>
-                        </p>
-                    </div>
-                    <table class="table">
-                    <thead>
-                        <tr>
-                          <th scope="col">id</th>
-                          <th scope="col">Название</th>
-                          <th scope="col">Действие</th>
-                        </tr>
-                      </thead>
-                    <tbody>
-                    {% for man in manufacturers %}
-                    <tr>
-                      <th scope="row">{{man.id}}</th>
-                      <td><a href="/category?cat_id={{man.id}}">{{man.name}}</a></td>
-                      <td><a href="/" class="btn btn-danger">Удалить</a></td>
+                      <td><a href="/" class="btn btn-danger" onclick="del_category({{cat.id}})">Удалить</a></td>
                     </tr>
                     {% endfor %}
                     </tbody>
@@ -63,12 +34,35 @@
                 </div>
             </div>
         </div>
-
-
         <div class="col-md-7">
             <a href="/order/all" class="btn btn-primary">Все заказы</a>
         </div>
-
-
     </div>
 </div>
+<script>
+    function sendRequest(url, method, data) {
+          fetch(url, {
+            method: method,
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Ошибка запроса');
+            }
+            return response.json();
+          })
+          .then(() => {
+            location.reload();
+          })
+          .catch(error => {
+            console.error('Ошибка:', error);
+          });
+        }
+
+    function del_category(category_id){
+        sendRequest('/category/delete', 'DELETE', { category_id: category_id });
+    }
+</script>

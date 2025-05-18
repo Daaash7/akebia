@@ -90,15 +90,15 @@ CREATE TABLE "new_collection" (
   "product_id" integer unique
 );
 
-ALTER TABLE "products" ADD FOREIGN KEY ("category_id") REFERENCES "categories" ("id");
+ALTER TABLE "products" ADD FOREIGN KEY ("category_id") REFERENCES "categories" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "new_collection" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id");
+ALTER TABLE "new_collection" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "price_changes" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id");
+ALTER TABLE "price_changes" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "deliveries" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id");
+ALTER TABLE "deliveries" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "sales" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id");
+ALTER TABLE "sales" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "sales" ADD FOREIGN KEY ("order_id") REFERENCES "orders" ("id");
 
@@ -106,7 +106,7 @@ ALTER TABLE "orders" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 ALTER TABLE "order_statuses" ADD FOREIGN KEY ("order_id") REFERENCES "orders" ("id");
 
-ALTER TABLE "carts" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id");
+ALTER TABLE "carts" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "carts" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 

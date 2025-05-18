@@ -21,3 +21,11 @@ async def create_category(name) -> Category:
         return None
     cat = await db.fetchrow("SELECT * FROM categories WHERE name = $1", name)
     return Category(**cat)
+
+async def delete_category(category_id):
+    try:
+        await db.execute(f"DELETE FROM categories WHERE id={category_id}")
+        return True
+    except Exception as e:
+        print(e)
+        return False
