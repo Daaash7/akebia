@@ -399,7 +399,7 @@ section h2 {
 }
 
 .main-order{
-    background-color: #0f1e55;
+    background: linear-gradient(135deg, #1a2a33, #889398);
     padding: 0.5rem 1rem;
     border-radius: 10px;
     margin-bottom: 300px;
