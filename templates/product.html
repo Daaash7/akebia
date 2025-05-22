@@ -1,7 +1,15 @@
 {% include 'header.html' %}
 <div class="product-container">
         <div class="product-card">
-            <img src="../static/img/products_images/{{product.image_filename}}" alt="Худи АКЕВІА" class="product-image">
+            <div class="slider">
+                <div class="slider-container">
+                    <img src="../static/img/products_images/{{product.image_filename}}" alt="Image 1" class="slide active">
+                    <img src="../static/img/size hudy.png" alt="Image 2" class="slide">
+                    <img src="../static/img/care conditions.png" alt="Image 3" class="slide">
+                </div>
+                <button class="prev" onclick="prevSlide()">&#10094;</button>
+                <button class="next" onclick="nextSlide()">&#10095;</button>
+            </div>
             <div class="product-info">
                 <div class="product-title">{{product.name}}</div>
                 <div class="product-details">
@@ -153,5 +161,30 @@
         }
 
         document.addEventListener('DOMContentLoaded', setupCollectionButtons);
+
+        let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+                slide.classList.add('active');
+            }
+        });
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(currentSlide);
+    }
+
+    showSlide(currentSlide);
     </script>
 {% include 'footer.html' %}
