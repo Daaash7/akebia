@@ -32,7 +32,7 @@
                         </div>
                         <div class="row">
                             {% if is_in_cart %}
-                                <button class="disabled-btn" disabled>В корзине</button>
+                                <button class="disabled-btn" onclick="del_from_cart({{product.id}})">В корзине</button>
                             {% elif count > 0 and price.price %}
                             <button class="click-btn" onclick="add_to_cart({{product.id}})">Добавить в корзину</button>
                             {% else %}
@@ -98,7 +98,7 @@
             if (json_res.status_code === 401) {
                 window.location.replace(window.location.origin + '/user/login');
             } else if (response.status === 200){
-                window.location.href = '/';
+                window.location.reload();
             } else {
                 alert("Не удалось добавить товар. Возможно он уже есть в корзине.")
             }
@@ -184,5 +184,26 @@
     window.addEventListener('resize', updateSlider);
     window.addEventListener('DOMContentLoaded', updateSlider);
     {#updateSliders(currentSlide);#}
+
+        async function del_from_cart(product_id){
+            event.preventDefault()
+            const response = await fetch('/product/del_from_cart?pr_id=' + product_id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+            const json_res = await response.json();
+            console.log(JSON.stringify(json_res));
+            console.log(typeof parseInt(product_id), product_id);
+            console.log(json_res.status_code);
+            if (json_res.status_code === 401) {
+                window.location.replace(window.location.origin + '/user/login');
+            } else if (response.status === 200){
+                window.location.reload();
+            } else {
+                alert("Не удалось удалить товар.")
+            }
+        }
     </script>
 {% include 'footer.html' %}

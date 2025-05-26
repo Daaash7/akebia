@@ -78,7 +78,7 @@
     async function logout(){
         event.preventDefault()
         deleteCookie('access_token')
-        window.location.href = '/';
+        window.location.href = '/user/login';
     }
 
     async function create_order(){

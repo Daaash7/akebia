@@ -61,7 +61,7 @@
         if (json_res.status_code === 401) {
             window.location.reload();
         } else if (response.status === 200) {
-            window.location.href = '/';
+            window.location.reload();
         } else {
             alert("Не удалось добавить товар. Возможно он уже есть в корзине.")
         }
