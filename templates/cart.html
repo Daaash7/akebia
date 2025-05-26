@@ -18,11 +18,14 @@
 
                 <div class="order-item">
                     <img src="../static/img/products_images/{{product_card.product.image_filename}}" alt="{{product_card.product.name}}">
-                    <div class="item-info">
-                        <p><strong>{{product_card.product.name}}</strong></p>
-                        <p>Цена: {{product_card.new_price.price}} ₽</p>
-                        {% set ns.total = ns.total + product_card.new_price.price %}
-                        <p>Артикул: {{product_card.product.product_code}}</p>
+                    <div class="item-content">
+                        <div class="item-info">
+                            <p><strong>{{product_card.product.name}}</strong></p>
+                            <p>Цена: {{product_card.new_price.price}} ₽</p>
+                            {% set ns.total = ns.total + product_card.new_price.price %}
+                            <p>Артикул: {{product_card.product.product_code}}</p>
+                        </div>
+                        <button class="remove-btn">🗑</button>
                     </div>
                 </div>
                 {% endif %}
