@@ -8,8 +8,8 @@
                 <h2>{{current_user.username}}</h2>
                 <p>{{current_user.phone_number}}</p>
 
-                <form action="/logout" method="post">
-                    <button type="submit" class="logout-btn">Выйти из аккаунта</button>
+                <form action="" method="get">
+                    <a type="submit" href="/user/logout" onclick="logout()" class="logout-btn">Выйти из аккаунта</a>
                 </form>
             </div>
         </div>
@@ -69,6 +69,16 @@
         } else {
             alert("Не удалось добавить товар. Возможно он уже есть в корзине.")
         }
+    }
+
+    function deleteCookie(name) {
+      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    }
+
+    async function logout(){
+        event.preventDefault()
+        deleteCookie('access_token')
+        window.location.href = '/';
     }
 
     async function create_order(){

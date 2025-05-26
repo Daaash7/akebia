@@ -25,7 +25,7 @@
                             {% set ns.total = ns.total + product_card.new_price.price %}
                             <p>Артикул: {{product_card.product.product_code}}</p>
                         </div>
-                        <button class="remove-btn">🗑</button>
+                        <button class="remove-btn" onclick="del_from_cart({{product_card.product.id}})">🗑</button>
                     </div>
                 </div>
                 {% endif %}
@@ -48,6 +48,25 @@
 
     </div>
 </main>
+<script>
+    async function del_from_cart(product_id) {
+        event.preventDefault()
+        const response = await fetch('/product/del_from_cart?pr_id=' + product_id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const json_res = await response.json();
+        if (json_res.status_code === 401) {
+            window.location.reload();
+        } else if (response.status === 200) {
+            window.location.href = '/';
+        } else {
+            alert("Не удалось добавить товар. Возможно он уже есть в корзине.")
+        }
+    }
+</script>
 
 {% include 'footer.html' %}
 
