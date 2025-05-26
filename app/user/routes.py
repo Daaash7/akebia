@@ -9,7 +9,7 @@ from app.cart.accessor import get_all_cart
 from app.order.accessor import get_all_orders
 from app.user.accessor import create_user, validate_user
 from app.user.models import User
-from app.utils.cookies_session import COOKIE_NAME, get_user_token, get_current_user
+from app.utils.cookies_session import COOKIE_NAME, get_user_token, get_current_user, remove_auth_cookie
 from app.utils.utils import templates
 
 router = APIRouter(
@@ -40,6 +40,11 @@ async def register_post(request: Request, response: Response, username: Annotate
 @router.get("/login")
 async def login(request: Request):
     return templates.TemplateResponse("user_login.html", {"request": request})
+
+@router.get("/logout")
+async def logout(request: Request):
+    await remove_auth_cookie(request)
+    return {}
 
 @router.post("/login")
 async def login_post(request: Request, response: Response, username: Annotated[str, Body()], password: Annotated[str, Body()]):

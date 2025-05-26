@@ -40,6 +40,10 @@ async def get_current_admin(request: Request):
                 raise HTTPException(status_code=401, detail="Unauthorized")
     raise HTTPException(status_code=401, detail="Unauthorized")
 
+async def remove_auth_cookie(request: Request):
+    request.cookies.pop(COOKIE_NAME, None)
+
+
 async def validate_admin(request: Request):
     # payload = {}
     # try:
