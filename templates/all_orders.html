@@ -1,8 +1,8 @@
 {% include 'header.html' %}
 <div class="container">
-    <button class="btn btn-primary mb-3" onclick="sortCards('order')">Сортировать по номеру заказа</button>
-    <button class="btn btn-secondary mb-3" onclick="sortCards('date')">Сортировать по дате оформления</button>
-    <button class="btn btn-success mb-3" onclick="sortCards('status')">Сортировать по статусу заказа</button>
+    <button class="btn btn-dark mb-3" onclick="sortCards('order')">Сортировать по номеру заказа</button>
+    <button class="btn btn-dark mb-3" onclick="sortCards('date')">Сортировать по дате оформления</button>
+    <button class="btn btn-dark mb-3" onclick="sortCards('status')">Сортировать по статусу заказа</button>
     <div class="row" id="card-container">
         {% for order in orders %}
         <div class="col-md-3 my-3">
@@ -20,9 +20,9 @@
 
                     <h6>Статус:</h6>
                     {% if order.status == 1 %}
-                    <p class="my-1 text-center text-bg-warning text-wrap rounded py-1">В обработке</p>
+                    <p class="my-1 text-center text-bg-primary text-wrap rounded py-1">В обработке</p>
                     {% elif order.status == 2 %}
-                    <p class="my-1 text-center text-bg-primary text-wrap rounded py-1">Собирается</p>
+                    <p class="my-1 text-center text-bg-warning text-wrap rounded py-1">Собирается</p>
                     {% elif order.status == 3 %}
                     <p class="my-1 text-center text-bg-success text-wrap rounded py-1">Готов к получению</p>
                     {% else %}

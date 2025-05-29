@@ -27,13 +27,13 @@
                 <div class="order-info">
                     <p class="order-date">{{order.date}}</p>
                     {% if order.status == 1 %}
-                    <span class="status my-1 text-center text-bg-warning text-wrap rounded py-1">В обработке</span>
+                    <span class="status my-1 text-center text-bg-primary text-wrap rounded py-1">В обработке</span>
                     {% elif order.status == 2 %}
-                    <span class="status my-1 text-center text-bg-primary text-wrap rounded py-1">Собирается</span>
+                    <span class="status my-1 text-center text-bg-warning text-wrap rounded py-1">Собирается</span>
                     {% elif order.status == 3 %}
                     <span class="status my-1 text-center text-bg-success text-wrap rounded py-1">Готов к получению</span>
                     {% else %}
-                    <span class="status my-1 text-center text-bg-danger text-wrap rounded py-1">None</span>
+                    <span class="status my-1 text-center text-bg-dark text-wrap rounded py-1">None</span>
                     {% endif %}
                 </div>
                 <div class="order-products">
