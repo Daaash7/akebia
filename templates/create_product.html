@@ -48,11 +48,10 @@
   const switchInput = document.getElementById('is_new_collection');
 
   form.addEventListener('submit', function(event) {
-    event.preventDefault(); // Предотвращаем стандартную отправку
+    event.preventDefault();
 
     const formData = new FormData(form);
 
-    // Удаляем старое значение чекбокса и добавляем явно true/false
     formData.delete('is_new_collection');
     formData.append('is_new_collection', switchInput.checked ? 'true' : 'false');
 
@@ -65,12 +64,10 @@
         throw new Error('Ошибка при отправке формы');
       }
 
-      // Проверяем, был ли редирект
       const redirectUrl = response.url;
       if (redirectUrl && redirectUrl !== window.location.href) {
-        window.location.href = redirectUrl; // Делаем редирект вручную
+        window.location.href = redirectUrl;
       } else {
-        // Или просто перезагрузим страницу/покажем сообщение
         window.location.reload();
       }
     })
@@ -79,29 +76,5 @@
     });
   });
 </script>
-    <!--<script>-->
-<!--    async function login_user(){-->
-<!--        event.preventDefault()-->
-<!--        let name = document.getElementById("man_name").value-->
-<!--        let image_filename = document.getElementById("man_img_filename").value-->
-
-<!--        const response = await fetch('/manufacturer/create', {-->
-<!--                method: 'POST',-->
-<!--                headers: {-->
-<!--                    'Content-Type': 'application/json'-->
-<!--                },-->
-<!--                body: JSON.stringify({-->
-<!--                    manufacturer_name: name,-->
-<!--                })-->
-<!--            })-->
-<!--        const json = await response.json();-->
-<!--        console.log(JSON.stringify(json));-->
-<!--        if (json.ok){-->
-<!--            window.location.href = '/';-->
-<!--        } else {-->
-<!--            alert("Не удалось создать производителя. Возможно, такое название уже существует.")-->
-<!--        }-->
-<!--    }-->
-<!--</script>-->
 </body>
 </html>
